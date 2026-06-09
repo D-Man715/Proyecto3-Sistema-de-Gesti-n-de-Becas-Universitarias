@@ -190,6 +190,7 @@ def insertar_postulacion():
     return jsonify({"mensaje": "postulacion registrada con exito"}),201
 #------------------------------------PUT----------------------------
 @app.route('/becas/<int:id>', methods=['PUT'])
+@jwt_required()
 def actualizar_becas(id):
     
     data = request.get_json()
@@ -209,6 +210,7 @@ def actualizar_becas(id):
     cursor.close()
     return jsonify({"mensaje": "Beca actualizado correctamente"}), 200
 @app.route('/documentos/<int:id>', methods=['PUT'])
+@jwt_required()
 def actualizar_documendo(id):
     
     data = request.get_json()
@@ -227,6 +229,7 @@ def actualizar_documendo(id):
     cursor.close()
     return jsonify({"mensaje": "documendos actualizado correctamente"}), 200
 @app.route('/estudiantes/<int:id>', methods=['PUT'])
+@jwt_required()
 def actualizar_estudiante(id): 
     data = request.get_json()
     id_estudiante=data["id_estudiante"]
@@ -246,6 +249,7 @@ def actualizar_estudiante(id):
     return jsonify({"mensaje": "estudiante actualizado correctamente"}), 200
 
 @app.route('/postulaciones/<int:id>', methods=['PUT'])
+@jwt_required()
 def actualizar_postulacion(id): 
     data = request.get_json()
     id_estudiante= data["id_estudiante"]
@@ -265,6 +269,7 @@ def actualizar_postulacion(id):
     return jsonify({"mensaje": "postulacion actualizado correctamente"}), 200
 #-------------------------------------------DELETE----------------------------
 @app.route('/becas/<int:id>', methods=['DELETE'])
+@jwt_required()
 def eliminar_beca(id):
     cursor = mysql.connection.cursor()
     #BUSCAR EL CATEGORIA
@@ -284,6 +289,7 @@ def eliminar_beca(id):
     return jsonify({"mensaje": "beca Eliminada"}),200
 
 @app.route('/documentos/<int:id>', methods=['DELETE'])
+@jwt_required()
 def eliminar_documento(id):
     cursor = mysql.connection.cursor()
     #BUSCAR EL CATEGORIA
@@ -302,6 +308,7 @@ def eliminar_documento(id):
     cursor.close()
     return jsonify({"mensaje": "documento Eliminada"}),200
 @app.route('/estudiantes/<int:id>', methods=['DELETE'])
+@jwt_required()
 def eliminar_estudiante(id):
     cursor = mysql.connection.cursor()
     #BUSCAR EL CATEGORIA
@@ -321,6 +328,7 @@ def eliminar_estudiante(id):
     return jsonify({"mensaje": "estudiantes Eliminada"}),200
 
 @app.route('/postulaciones/<int:id>', methods=['DELETE'])
+@jwt_required()
 def eliminar_postulacion(id):
     cursor = mysql.connection.cursor()
     #BUSCAR EL CATEGORIA
