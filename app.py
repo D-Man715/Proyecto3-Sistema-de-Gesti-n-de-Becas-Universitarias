@@ -361,6 +361,37 @@ def eliminar_postulacion(id):
     mysql.connection.commit()
     cursor.close()
     return jsonify({"mensaje": "postulacion  Eliminada"}),200
+@app.route('/consultas/pendientes', methods=['GET'])
+def consulta_pendientes():
+    cursor = mysql.connection.cursor()
+    sql = """
+        SELECT 
+            p.id_postulacion,
+            e.nombres,
+            e.apellidos,
+            b.nombre_beca,
+            p.fecha_postulacion,
+            p.estado
+        FROM postulaciones p
+        JOIN estudiantes e ON p.id_estudiante = e.id_estudiante
+        JOIN becas b ON p.id_beca = b.id_beca
+        WHERE p.estado = 'Pendiente'
+        ORDER BY p.fecha_postulacion ASC
+    """
+    cursor.execute(sql)
+    datos = cursor.fetchall()
 
+    resultado = []
+    for fila in datos:
+        resultado.append({
+            "id_postulacion": fila[0],
+            "nombres": fila[1],
+            "apellidos": fila[2],
+            "nombre_beca": fila[3],
+            "fecha_postulacion": str(fila[4]),
+            "estado": fila[5]
+        })
+    cursor.close()
+    return jsonify(resultado)
 if __name__ == '__main__':
     app.run(debug=True)

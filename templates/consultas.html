@@ -84,7 +84,43 @@
   </div>
 </nav>
 
+<div class="container mt-4">
+  <h2 class="mb-3">Postulaciones Pendientes</h2>
+  <p class="text-muted">Estudiantes que aún no han sido evaluados por la universidad.</p>
+  <table class="table table-bordered table-hover" id="tablaPendientes">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Beca</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpoTabla">
+    </tbody>
+  </table>
+</div>
 
+<script>
+  fetch('/consultas/pendientes')
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.getElementById('cuerpoTabla');
+      data.forEach((item, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i+1}</td>
+            <td>${item.nombres}</td>
+            <td>${item.apellidos}</td>
+            <td>${item.nombre_beca}</td>
+            <td>${item.fecha_postulacion}</td>
+            <td><span class="badge bg-warning text-dark">${item.estado}</span></td>
+          </tr>`;
+      });
+    });
+</script>
 
 
 
