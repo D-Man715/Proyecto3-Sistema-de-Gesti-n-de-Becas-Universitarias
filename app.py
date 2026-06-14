@@ -361,6 +361,9 @@ def eliminar_postulacion(id):
     mysql.connection.commit()
     cursor.close()
     return jsonify({"mensaje": "postulacion  Eliminada"}),200
+
+#------------------------------CONSULTAS LOPEZ-----------------------------
+
 @app.route('/consultas/pendientes', methods=['GET'])
 def consulta_pendientes():
     cursor = mysql.connection.cursor()
@@ -393,5 +396,7 @@ def consulta_pendientes():
         })
     cursor.close()
     return jsonify(resultado)
+#------------------------------CONSULTAS LOPEZ-----------------------------
+
 if __name__ == '__main__':
     app.run(debug=True)
