@@ -26,11 +26,13 @@ function login() {
             document.getElementById('mensaje').className = 'mt-3 fw-bold text-danger';
         }
     });
+    location.reload();
 }
 
 function logout() {
     localStorage.removeItem('token');
     document.getElementById('mensaje').textContent = 'Sesión cerrada';
     document.getElementById('mensaje').className = 'mt-3 fw-bold text-warning';
+    location.reload();
 }
 //------------------------------------------------------------------------------------------
